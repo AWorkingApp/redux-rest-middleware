@@ -46,7 +46,7 @@ function requestSuccessReducer(state, action) {
     switch(action.method){
         case Consts.METHODS.GET:
             if (action.id) {
-                //TODO should we update the list as well?
+                //TODO should we update the list as well and remove other details?
                 return resultState.setIn([action.resource, 'details', action.id], fromJS(action.payload));
             }
             return resultState.setIn([action.resource, 'data'], fromJS(action.payload));
