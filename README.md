@@ -1,4 +1,4 @@
-## redux-rest-middleware
+# redux-rest-middleware
 
 ### Development in progress
 
