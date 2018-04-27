@@ -2,6 +2,8 @@
 
 ### Development in progress
 
+See example usage in ``src/demo/App.js``
+
 ## Installing
 
 Using npm:

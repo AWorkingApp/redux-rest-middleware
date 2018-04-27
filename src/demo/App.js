@@ -7,7 +7,16 @@ const reducers = combineReducers({
   resources: ResourcesReducer,
 });
 
-const resourceMiddleware = createResourceMiddleware([{ resource: 'posts', url: 'https://jsonplaceholder.typicode.com/posts' }])
+// add a pre interceptor to add a sample default header to all request
+const defaultHeader = (options = {}) => {
+  let _options = { ...options };
+
+  _options.headers['X-Custom'] = 'custom_default_header';
+
+  return _options;
+};
+
+const resourceMiddleware = createResourceMiddleware([{ resource: 'posts', url: 'https://jsonplaceholder.typicode.com/posts' }], [defaultHeader]);
 const middlewares = [resourceMiddleware];
 
 const store = createStore(reducers, applyMiddleware(...middlewares));
