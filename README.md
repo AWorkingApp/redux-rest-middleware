@@ -49,12 +49,12 @@ $ npm install git+https://github.com/AWorkingApp/redux-rest-middleware.git
   // For each resource { Resource } added to the middleware six actions will be created
   /**
    * e.g for resource: { resource: 'posts', url: 'https://www.example.com/posts' }
-   * - ResourceActions.getPosts({options = {}, route = ''}): Get all posts
-   * - ResourceActions.getAllPosts({options = {}, route = ''}): Get all posts, same as the above action
-   * - ResourceActions.getPosts({id, options = {}, route = ''}): Get a specific posts with id
-   * - ResourceActions.postPosts({entity, options = {}, route = ''}): Post to create a posts resource
-   * - ResourceActions.putPosts({id, entity, options = {}, route = ''}): Put to a posts resource with id specified
-   * - ResourceActions.deletePosts({id, options = {}, route = ''}): Delete a posts with specific id
+   * - ResourcesActions.getPosts({options = {}, route = ''}): Get all posts
+   * - ResourcesActions.getAllPosts({options = {}, route = ''}): Get all posts, same as the above action
+   * - ResourcesActions.getPosts({id, options = {}, route = ''}): Get a specific posts with id
+   * - ResourcesActions.postPosts({entity, options = {}, route = ''}): Post to create a posts resource
+   * - ResourcesActions.putPosts({id, entity, options = {}, route = ''}): Put to a posts resource with id specified
+   * - ResourcesActions.deletePosts({id, options = {}, route = ''}): Delete a posts with specific id
    */
 
    // E.g
