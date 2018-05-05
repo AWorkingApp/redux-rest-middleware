@@ -6,7 +6,18 @@ let _resourceClients = {};
 let _resourceActions = {};
 let _initialReducers = {};
 
-export function addResource({ resource, url }) {
+export const configResources = (resources) => {
+    resources.forEach((resource) => {
+        if (!resource.url || !resource.resource) {
+            throw new Error('Resource must have both url and resource specified');
+        }
+
+        // TODO check if resource already exist
+        addResource(resource);
+    });
+}
+
+function addResource({ resource, url }) {
     _resourceClients[resource] = RestClient(url);
 
     const _resourceName = resource[0].toUpperCase() + resource.substr(1);
