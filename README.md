@@ -101,7 +101,7 @@ Each action takes one config object and it is as the following:
 - Add test
 - Make a more complete example
 - Remove dependency to immutablejs and axios and reduce the size of this library
-- Public to NPM repository
+- Publish to NPM repository
 
 ## License
 MIT
