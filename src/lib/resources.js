@@ -2,9 +2,9 @@
 import RestClient from './request';
 import * as BasicActions from './actions';
 
-let _resourceClients = {};
-let _resourceActions = {};
-let _initialReducers = {};
+const _resourceClients = {};
+const _resourceActions = {};
+const _initialReducers = {};
 
 export const configResources = (resources) => {
     resources.forEach((resource) => {
