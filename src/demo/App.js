@@ -11,6 +11,10 @@ const reducers = combineReducers({
 const defaultHeader = (options = {}) => {
   let _options = { ...options };
 
+  if(!_options.headers) {
+    _options.headers = {};
+  }
+
   _options.headers['X-Custom'] = 'custom_default_header';
 
   return _options;
@@ -34,7 +38,6 @@ class App extends React.PureComponent {
   }
 
   render() {
-    console.log(store.getState().resources.toJS());
     return <div>
       <button onClick={() => {
         store.dispatch(ResourcesActions.getPosts())
