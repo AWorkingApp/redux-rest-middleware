@@ -26,6 +26,7 @@ export default function resources(state = fromJS({ loading: false, ...getInitial
             return requestSuccessReducer(state, action);
         
         case Consts.REQUEST_ERROR:
+        case Consts.RUNTIME_ERROR:
             return state.set('loading', false).setIn([action.resource, 'loading'], false);
         
         default:

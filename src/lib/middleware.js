@@ -8,6 +8,7 @@ import * as Consts from './constants';
 
 const resourceMiddleware = store => next => action => {
     const restClient = getResourceClient(action.resource);
+    const onError  = _onError(next, action);
     // apply all middlewares
     next(action);
     switch (action.type) {
@@ -16,10 +17,7 @@ const resourceMiddleware = store => next => action => {
                 .get(action.id, action.options, action.route)
                 .then((result) => {
                     return next(ResourcesActions.getResourceSuccess(action.resource, action.id, result.data));
-                }, ({ response, message }) => {
-                    // TODO send action error
-                    return next(ResourcesActions.requestError(action.resource, action.id, { status: response.status, message, response }));
-                });
+                }, onError);
             break;
 
         case Consts.GET_RESOURCES:
@@ -27,10 +25,7 @@ const resourceMiddleware = store => next => action => {
                 .getAll(action.options, action.route)
                 .then((result) => {
                     return next(ResourcesActions.getResourcesSuccess(action.resource, result.data));
-                }, ({ response, message }) => {
-                    // TODO send action error
-                    return next(ResourcesActions.requestError(action.resource, undefined, { status: response.status, message, response }));
-                });
+                }, onError);
             break;
 
         case Consts.POST_RESOURCE:
@@ -38,10 +33,7 @@ const resourceMiddleware = store => next => action => {
                 .post(action.options, action.route)
                 .then((result) => {
                     return next(ResourcesActions.postResourceSuccess(action.resource, result.data));
-                }, ({ response, message }) => {
-                    // TODO send action error
-                    return next(ResourcesActions.requestError(action.resource, undefined, { status: response.status, message, response }));
-                });
+                }, onError);
             break;
 
         case Consts.PUT_RESOURCE:
@@ -49,10 +41,7 @@ const resourceMiddleware = store => next => action => {
                 .put(action.id, action.options, action.route)
                 .then((result) => {
                     return next(ResourcesActions.putResourceSuccess(action.resource, action.id, result.data));
-                }, ({ response, message }) => {
-                    // TODO send action error
-                    return next(ResourcesActions.requestError(action.resource, action.id, { status: response.status, message, response }));
-                });
+                }, onError);
             break;
         
         case Consts.DELETE_RESOURCE:
@@ -60,10 +49,7 @@ const resourceMiddleware = store => next => action => {
                 .delete(action.id, action.options, action.route)
                 .then((result) => {
                     return next(ResourcesActions.deleteResourceSuccess(action.resource, action.id, result.data));
-                }, ({ response, message }) => {
-                    // TODO send action error
-                    return next(ResourcesActions.requestError(action.resource, action.id, { status: response.status, message, response }));
-                });
+                }, onError);
             break;
         default:
             break;
@@ -113,4 +99,15 @@ export default function createResourceMiddleware(resources = [], preInterceptors
     });
 
     return resourceMiddleware;
+}
+
+const _onError = (next, action) => error => {
+    let { response, message } = error;
+
+    if (response && message) {
+        return next(ResourcesActions.requestError(action.resource, action.id, { status: response.status, message, response })); 
+    }
+
+    // general error handling
+    return next(ResourcesActions.runtimeError(action.resource, action.id, error)); 
 }

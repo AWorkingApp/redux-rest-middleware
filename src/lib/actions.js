@@ -66,6 +66,13 @@ export function requestError(resource, id, error) {
 }
 
 /**
+ * Runtime error
+ */
+export function runtimeError(resource, id, error) {
+    return runtimeErrorAction(resource, id, error);
+}
+
+/**
  * Internals
  */
 function crudAction(type, resource, id, options, route) {
@@ -119,6 +126,23 @@ function crudErrorAction(resource, id, error) {
         error,
     }
 }
+
+function runtimeErrorAction(resource, id, error) {
+    if (!id) {
+        return {
+            type: Consts.RUNTIME_ERROR,
+            resource,
+            error,
+        }
+    }
+    return {
+        type: Consts.RUNTIME_ERROR,
+        resource,
+        id,
+        error,
+    }
+}
+
 
 // This is for custom http request
 export function requestReources(request, resource, options = {}, route = '') {
