@@ -18,7 +18,7 @@ export const configResources = (resources) => {
 }
 
 function addResource({ resource, url }) {
-    _resourceClients[resource] = RestClient(url);
+    _resourceClients[resource] = RestClient(resource, url);
 
     const _resourceName = resource[0].toUpperCase() + resource.substr(1);
 

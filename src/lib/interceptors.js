@@ -1,4 +1,12 @@
 
+// TODO add include and exclude for inters
+/*
+{
+    interceptor: (options, resource) => {},
+    exclude: false, // include or excludes all the filtered resource,
+    resources: [{resource: '', methods: []}]
+}
+*/
 const _preInterceptors = [];
 const _postInterceptors = [];
 
@@ -12,7 +20,7 @@ export const configPreInterceptors = (preInterceptors = []) => {
     });
 }
 
-function addPreInterceptor(preInter = (options = {}) => { }) {
+function addPreInterceptor(preInter = (options = {}, resource) => { }) {
     _preInterceptors.push(preInter);
 }
 
@@ -26,7 +34,7 @@ export const configPostInterceptors = (postInterceptors = []) => {
     });
 }
 
-function addPostInterceptor(postInter = (result = {}) => { }){
+function addPostInterceptor(postInter = (result = {}, resource) => { }){
     _postInterceptors.push(postInter);
 }
 
