@@ -96,6 +96,7 @@ Each action takes one config object and it is as the following:
 ```
 
 ## TODO
+- Add more configuration for interceptors
 - Add more documentation about resources reducer
 - Add documentation about pre and post interceptors
 - Add test
