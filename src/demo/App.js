@@ -65,8 +65,7 @@ const defaultPostCheck = (response, resource) => {
   return response;
 };
 
-// const resourceMiddleware = createResourceMiddleware([{ resource: 'posts', url: 'https://jsonplaceholder.typicode.com/posts' }], [defaultHeader]);
-const resourceMiddleware = createResourceMiddleware([{ resource: 'posts', url: 'http://localhost:3000/posts' }], 
+const resourceMiddleware = createResourceMiddleware([{ resource: 'posts', url: 'https://jsonplaceholder.typicode.com/posts' }], 
   [defaultHeader, additionalHeaderOne, additionalHeaderTwo], [defaultPostCheck]);
 const middlewares = [resourceMiddleware];
 
