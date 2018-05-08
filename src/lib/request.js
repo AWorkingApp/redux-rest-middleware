@@ -40,21 +40,10 @@ export async function _delete(url, options = {}, resource) {
 export async function request(options, resource) {
     const preInterceptors = Interceptors.getPreInterceptors();
     const postInterceptors = Interceptors.getPostInterceptors();
-    let _options = { ...options };
-    for (let inter of preInterceptors) {
-        let __options = await inter(_options, resource);
-        if (__options) {
-            _options = __options;
-        }
-    }
+    const method = options.method;
+    let _options = await handleInterceptors(preInterceptors, options, resource, method);
     return axios(_options).then(async (response) => {
-        let _response = response;
-        for (let inter of postInterceptors) {
-            let __response = await inter(_response, resource);
-            if (__response) {
-                _response = __response;
-            }
-        }
+        let _response = await handleInterceptors(postInterceptors, response, resource, method);
         return { data: _response.data, status: _response.status };
     }).catch ((e) => {
         throw e;
@@ -88,4 +77,53 @@ export default function RestClient(resource, resourceUrl) {
             return await _delete(url, options, resource);
         }
     }
+}
+
+async function handleInterceptors(interceptors = [], data = {}, resource, method) {
+    let _data = { ...data };
+    for (let inter of interceptors) {
+        let __data;
+        if (typeof inter === 'function') {
+            __data = await inter(_data, resource);
+        } else if (inter && inter !== null && typeof inter === 'object') {
+            if (typeof inter.interceptor === 'function') {
+                if (_processResource(inter, resource, method)) {
+                    __data = await inter.interceptor(_data, resource);
+                }
+            }
+        }
+        if (__data) {
+            _data = __data;
+        }
+    }
+
+    return _data;
+}
+
+const _processResource = (interceptor, resource, method) => {
+    // resources filter is defined
+    if (interceptor.resources && Array.isArray(interceptor.resources)) {
+        // check resource filter, if there is a resource match
+        for (let interRes of interceptor.resources) {
+            // find the matching resource
+            if (interRes.resource === resource) {
+                if (!interRes.methods 
+                    || (Array.isArray(interRes.methods) && interRes.methods.indexOf(method)) > -1) {
+                    // this is the match resource and method, check if we want to exclude or include this resource
+                    if (interceptor.exclude) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        // we dont find this resource, if not exclude, we dont process this resource/method
+        if (!interceptor.exclude) {
+            return false;
+        }
+    }
+
+    return true; // process this resources if the filter is not defined
 }
