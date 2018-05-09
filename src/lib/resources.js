@@ -36,7 +36,7 @@ function addResource({ resource, url }) {
 
     _initialReducers[resource.toLowerCase()] = { 
         data: [],
-        details: {},
+        detail: {},
         loading: false,
     };
 }

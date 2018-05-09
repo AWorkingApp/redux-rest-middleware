@@ -18,9 +18,10 @@ export default function resources(state = fromJS({ loading: false, ...getInitial
 
         case Consts.PUT_RESOURCE:
         case Consts.GET_RESOURCE:
+        case Consts.DELETE_RESOURCE:
             return state.set('loading', true)
                 .setIn([action.resource, 'loading'], true)
-                .setIn([action.resource, 'details', action.id], fromJS({}));
+                .setIn([action.resource, 'detail'], fromJS({}));
 
         case Consts.REQUEST_SUCCESS:
             return requestSuccessReducer(state, action);
@@ -47,8 +48,7 @@ function requestSuccessReducer(state, action) {
     switch(action.method){
         case Consts.METHODS.GET:
             if (action.id) {
-                //TODO should we update the list as well and remove other details?
-                return resultState.setIn([action.resource, 'details', action.id], fromJS(action.payload));
+                return resultState.setIn([action.resource, 'detail'], fromJS(action.payload));
             }
             return resultState.setIn([action.resource, 'data'], fromJS(action.payload));
 
@@ -65,7 +65,7 @@ function requestSuccessReducer(state, action) {
         case Consts.METHODS.DELETE:
             if (dataIdx > -1) {
                 return resultState.deleteIn([action.resource, 'data', dataIdx])
-                    .deleteIn([action.resource, 'details', action.id]);
+                    .deleteIn([action.resource, 'detail']);
             }
             break;
 
