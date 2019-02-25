@@ -16,8 +16,8 @@
   "author": "Charlie Liu<charlie@aworkingapp.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
-    "immutable": "^3.8.2"
+    "axios": "0.18.0",
+    "immutable": "4.0.0-rc.12"
   },
   "devDependencies": {
     "autoprefixer": "7.1.6",
