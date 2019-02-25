@@ -1,6 +1,15 @@
 import * as Consts from './constants';
 
 /**
+ * Used when logging out to clear all loaded resources
+ */
+export function clearAll() {
+    return {
+        type: Consts.CLEAR_ALL
+    }
+}
+
+/**
  * Get
  */
 export function getResource(resource, id, options = {}, route = ''){

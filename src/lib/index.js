@@ -1,4 +1,5 @@
 export { default as ResourcesActions } from './resources';
+export { getResourceActions as getResourceActions } from './resources'; // eslint-disable-lin
 export { default as ResourcesReducer } from './reducers';
 
 // create the middleware
