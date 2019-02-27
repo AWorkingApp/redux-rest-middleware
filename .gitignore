@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 coverage/
 bower_components
+dist
 /lib
 .DS_Store
 

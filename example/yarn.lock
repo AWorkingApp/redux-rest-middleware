@@ -3974,14 +3974,6 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.4.tgz#f41dcb1af2582af3692da36fc55cbd8e1041c426"
-  integrity sha512-z8H8/diyk76B7q5wg+Ud0+CqzcAF3mBBI/bA5ne5zrRUUIvNkJY//D3BqyH571KuAC4Nr7Rw7CjWX4r0y9DvNg==
-  dependencies:
-    nan "^2.9.2"
-    node-pre-gyp "^0.10.0"
-
 fsevents@^1.2.3, fsevents@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.7.tgz#4851b664a3783e52003b3c66eb0eee1074933aa4"
@@ -5836,7 +5828,7 @@ loglevel@^1.4.1:
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
   integrity sha1-4PyVEztu8nbNyIh82vJKpvFW+Po=
 
-loose-envify@^1.0.0, loose-envify@^1.1.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -7840,7 +7832,7 @@ react-dev-utils@^7.0.3:
     strip-ansi "5.0.0"
     text-table "0.2.0"
 
-react-dom@16.8.3:
+react-dom@^16.8.3:
   version "16.8.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.3.tgz#ae236029e66210783ac81999d3015dfc475b9c32"
   integrity sha512-ttMem9yJL4/lpItZAQ2NTFAbV7frotHk5DZEHXUOws2rMmrsvh1Na7ThGT0dTzUIl6pqTOi5tYREfL8AEna3lA==
@@ -7860,62 +7852,7 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.1.tgz#a80141e246eb894824fb4f2901c0c50ef31d4cdb"
   integrity sha512-ioMCzVDWvCvKD8eeT+iukyWrBGrA3DiFYkXfBsVYIRdaREZuBjENG+KjrikavCLasozqRWTwFUagU/O4vPpRMA==
 
-react-scripts@2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-2.1.5.tgz#0740507db0a06d518c231caa1ef4e908bd8ebce5"
-  integrity sha512-NaDKSxBLlU/jmO3TjTChz0PnnGToaQn0R/y4l4/Uk1vZdrIUsKCGdOWV1z0SJoRg7bFgNKxh55yS0qMr8rFwCg==
-  dependencies:
-    "@babel/core" "7.2.2"
-    "@svgr/webpack" "4.1.0"
-    babel-core "7.0.0-bridge.0"
-    babel-eslint "9.0.0"
-    babel-jest "23.6.0"
-    babel-loader "8.0.5"
-    babel-plugin-named-asset-import "^0.3.1"
-    babel-preset-react-app "^7.0.1"
-    bfj "6.1.1"
-    case-sensitive-paths-webpack-plugin "2.2.0"
-    css-loader "1.0.0"
-    dotenv "6.0.0"
-    dotenv-expand "4.2.0"
-    eslint "5.12.0"
-    eslint-config-react-app "^3.0.7"
-    eslint-loader "2.1.1"
-    eslint-plugin-flowtype "2.50.1"
-    eslint-plugin-import "2.14.0"
-    eslint-plugin-jsx-a11y "6.1.2"
-    eslint-plugin-react "7.12.4"
-    file-loader "2.0.0"
-    fork-ts-checker-webpack-plugin-alt "0.4.14"
-    fs-extra "7.0.1"
-    html-webpack-plugin "4.0.0-alpha.2"
-    identity-obj-proxy "3.0.0"
-    jest "23.6.0"
-    jest-pnp-resolver "1.0.2"
-    jest-resolve "23.6.0"
-    jest-watch-typeahead "^0.2.1"
-    mini-css-extract-plugin "0.5.0"
-    optimize-css-assets-webpack-plugin "5.0.1"
-    pnp-webpack-plugin "1.2.1"
-    postcss-flexbugs-fixes "4.1.0"
-    postcss-loader "3.0.0"
-    postcss-preset-env "6.5.0"
-    postcss-safe-parser "4.0.1"
-    react-app-polyfill "^0.2.1"
-    react-dev-utils "^7.0.3"
-    resolve "1.10.0"
-    sass-loader "7.1.0"
-    style-loader "0.23.1"
-    terser-webpack-plugin "1.2.2"
-    url-loader "1.1.2"
-    webpack "4.28.3"
-    webpack-dev-server "3.1.14"
-    webpack-manifest-plugin "2.0.4"
-    workbox-webpack-plugin "3.6.3"
-  optionalDependencies:
-    fsevents "1.2.4"
-
-react@16.8.3:
+react@^16.8.3:
   version "16.8.3"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.3.tgz#c6f988a2ce895375de216edcfaedd6b9a76451d9"
   integrity sha512-3UoSIsEq8yTJuSu0luO1QQWYbgGEILm+eJl2QN/VLDi7hL+EN18M3q3oVZwmVzzBJ3DkM7RMdRwBmZZ+b4IzSA==
@@ -8013,6 +7950,14 @@ recursive-readdir@2.2.2:
   integrity sha512-nRCcW9Sj7NuZwa2XvH9co8NPeXUBhZP7CRKJtU+cS6PW9FpCIFoI5ib0NT1ZrbNuPoRy0ylyCaUL8Gih4LSyFg==
   dependencies:
     minimatch "3.0.4"
+
+redux@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
+  integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
 
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
@@ -9019,6 +8964,11 @@ svgo@^1.0.0, svgo@^1.1.1:
     stable "~0.1.6"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+symbol-observable@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-tree@^3.2.2:
   version "3.2.2"

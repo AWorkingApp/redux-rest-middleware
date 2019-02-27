@@ -1,5 +1,4 @@
-export { default as ResourcesActions } from './resources';
-export { getResourceActions } from './resources';
+export { default as ResourcesActions, getResourceActions } from './resources';
 export { default as ResourcesReducer } from './reducers';
 
 // create the middleware

@@ -1,4 +1,3 @@
-
 import * as ResourcesActions from './actions';
 
 import { getResourceClient, configResources } from './resources';
@@ -6,79 +5,98 @@ import { configPreInterceptors, configPostInterceptors } from './interceptors';
 
 import * as Consts from './constants';
 
-const resourceMiddleware = store => next => action => {
-    const restClient = getResourceClient(action.resource);
-    const onError  = _onError(next, action);
-    // apply all middlewares
-    next(action);
-    switch (action.type) {
-        case Consts.GET_RESOURCE:
-            restClient
-                .get(action.id, action.options, action.route)
-                .then((result) => next(ResourcesActions.getResourceSuccess(action.resource, action.id, result.data)), onError);
-            break;
+const _onError = (next, action) => error => {
+  let { response, message } = error;
 
-        case Consts.GET_RESOURCES:
-            restClient
-                .getAll(action.options, action.route)
-                .then((result) => next(ResourcesActions.getResourcesSuccess(action.resource, result.data)), onError);
-            break;
+  if (response && message) {
+    return next(
+      ResourcesActions
+        .requestError(action.resource, action.id, { status: response.status, message, response })
+    );
+  }
 
-        case Consts.POST_RESOURCE:
-            restClient
-                .post(action.options, action.route)
-                .then((result) => next(ResourcesActions.postResourceSuccess(action.resource, result.data)), onError);
-            break;
-
-        case Consts.PUT_RESOURCE:
-            restClient
-                .put(action.id, action.options, action.route)
-                .then((result) => next(ResourcesActions.putResourceSuccess(action.resource, action.id, result.data)), onError);
-            break;
-        
-        case Consts.DELETE_RESOURCE:
-            restClient
-                .delete(action.id, action.options, action.route)
-                .then((result) => next(ResourcesActions.deleteResourceSuccess(action.resource, action.id, result.data)), onError);
-            break;
-        default:
-            break;
-    }
+  // general error handling
+  return next(ResourcesActions.runtimeError(action.resource, action.id, error));
 };
 
-export default function createResourceMiddleware(resources = [], preInterceptors = [], postInterceptors = []) {
-    if (!Array.isArray(resources)) {
-        throw new Error('Resources should be an array of resources');
-    }
+const resourceMiddleware = store => next => action => { // eslint-disable-line
+  const restClient = getResourceClient(action.resource);
+  const onError = _onError(next, action);
+  // apply all middlewares
+  next(action);
+  switch (action.type) {
+    case Consts.GET_RESOURCE:
+      restClient
+        .get(action.id, action.options, action.route)
+        .then(result =>
+          next(ResourcesActions
+            .getResourceSuccess(action.resource, action.id, result.data)), onError
+        );
+      break;
 
-    if (resources.length === 0) {
-        throw new Error('At least one resource is required');
-    }
+    case Consts.GET_RESOURCES:
+      restClient
+        .getAll(action.options, action.route)
+        .then(result =>
+          next(ResourcesActions.getResourcesSuccess(action.resource, result.data)), onError
+        );
+      break;
 
-    configResources(resources);
+    case Consts.POST_RESOURCE:
+      restClient
+        .post(action.options, action.route)
+        .then(result =>
+          next(ResourcesActions.postResourceSuccess(action.resource, result.data)), onError
+        );
+      break;
 
-    if (!Array.isArray(preInterceptors)) {
-        throw new Error('preInterceptors should be an array of functions');
-    }
+    case Consts.PUT_RESOURCE:
+      restClient
+        .put(action.id, action.options, action.route)
+        .then(result =>
+          next(ResourcesActions
+            .putResourceSuccess(action.resource, action.id, result.data)), onError
+        );
+      break;
 
-    configPreInterceptors(preInterceptors);
+    case Consts.DELETE_RESOURCE:
+      restClient
+        .delete(action.id, action.options, action.route)
+        .then(result =>
+          next(ResourcesActions
+            .deleteResourceSuccess(action.resource, action.id, result.data)), onError
+        );
+      break;
+    default:
+      break;
+  }
+};
 
-    if (!Array.isArray(postInterceptors)) {
-        throw new Error('postInterceptors should be an array of functions');
-    }
+export default function createResourceMiddleware(resources = [],
+  preInterceptors = [],
+  postInterceptors = []) {
 
-    configPostInterceptors(postInterceptors);
+  if (!Array.isArray(resources)) {
+    throw new Error('Resources should be an array of resources');
+  }
 
-    return resourceMiddleware;
-}
+  if (resources.length === 0) {
+    throw new Error('At least one resource is required');
+  }
 
-const _onError = (next, action) => error => {
-    let { response, message } = error;
+  configResources(resources);
 
-    if (response && message) {
-        return next(ResourcesActions.requestError(action.resource, action.id, { status: response.status, message, response })); 
-    }
+  if (!Array.isArray(preInterceptors)) {
+    throw new Error('preInterceptors should be an array of functions');
+  }
 
-    // general error handling
-    return next(ResourcesActions.runtimeError(action.resource, action.id, error)); 
+  configPreInterceptors(preInterceptors);
+
+  if (!Array.isArray(postInterceptors)) {
+    throw new Error('postInterceptors should be an array of functions');
+  }
+
+  configPostInterceptors(postInterceptors);
+
+  return resourceMiddleware;
 }

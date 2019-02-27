@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-import { createResourceMiddleware, ResourcesReducer, ResourcesActions, METHODS } from '../../src';
+import { createResourceMiddleware, ResourcesReducer, ResourcesActions, METHODS } from '../../dist/redux-rest-middleware.js';
 
 const reducers = combineReducers({
   resources: ResourcesReducer,
