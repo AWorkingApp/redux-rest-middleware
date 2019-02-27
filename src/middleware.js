@@ -8,6 +8,15 @@ import * as Consts from './constants';
 const _onError = (next, action) => error => {
   let { response, message } = error;
 
+  try {
+    if (action
+      && action.options
+      && action.options.onSuccess
+      && typeof action.options.onSuccess === 'function') {
+      action.options.onError(error);
+    }
+  } catch (e) { }
+
   if (response && message) {
     return next(
       ResourcesActions
@@ -19,6 +28,18 @@ const _onError = (next, action) => error => {
   return next(ResourcesActions.runtimeError(action.resource, action.id, error));
 };
 
+// TODO Error handling?
+const onSuccessCallback = (action, data) => {
+  try {
+    if (action
+      && action.options
+      && action.options.onSuccess
+      && typeof action.options.onSuccess === 'function') {
+      action.options.onSuccess(data);
+    }
+  } catch (e) { }
+};
+
 const resourceMiddleware = store => next => action => { // eslint-disable-line
   const restClient = getResourceClient(action.resource);
   const onError = _onError(next, action);
@@ -28,44 +49,51 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
     case Consts.GET_RESOURCE:
       restClient
         .get(action.id, action.options, action.route)
-        .then(result =>
-          next(ResourcesActions
-            .getResourceSuccess(action.resource, action.id, result.data)), onError
-        );
+        .then(result => {
+          onSuccessCallback(action, result.data);
+          return next(ResourcesActions
+            .getResourceSuccess(action.resource, action.id, result.data));
+        }, onError);
       break;
 
     case Consts.GET_RESOURCES:
       restClient
         .getAll(action.options, action.route)
-        .then(result =>
-          next(ResourcesActions.getResourcesSuccess(action.resource, result.data)), onError
-        );
+        .then(result => {
+          onSuccessCallback(action, result.data);
+          return next(ResourcesActions
+            .getResourcesSuccess(action.resource, result.data));
+        }, onError);
       break;
 
     case Consts.POST_RESOURCE:
       restClient
         .post(action.options, action.route)
-        .then(result =>
-          next(ResourcesActions.postResourceSuccess(action.resource, result.data)), onError
-        );
+        .then(result => {
+          onSuccessCallback(action, result.data);
+          return next(ResourcesActions
+            .postResourceSuccess(action.resource, result.data));
+        }, onError);
       break;
 
     case Consts.PUT_RESOURCE:
       restClient
         .put(action.id, action.options, action.route)
-        .then(result =>
-          next(ResourcesActions
-            .putResourceSuccess(action.resource, action.id, result.data)), onError
-        );
+        .then(result => {
+          onSuccessCallback(action, result.data);
+          return next(ResourcesActions
+            .putResourceSuccess(action.resource, action.id, result.data));
+        }, onError);
       break;
 
     case Consts.DELETE_RESOURCE:
       restClient
         .delete(action.id, action.options, action.route)
-        .then(result =>
-          next(ResourcesActions
-            .deleteResourceSuccess(action.resource, action.id, result.data)), onError
-        );
+        .then(result => {
+          onSuccessCallback(action, result.data);
+          return next(ResourcesActions
+            .deleteResourceSuccess(action.resource, action.id, result.data));
+        }, onError);
       break;
     default:
       break;

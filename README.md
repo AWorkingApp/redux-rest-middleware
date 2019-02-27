@@ -97,6 +97,7 @@ Each action takes one config object and it is as the following:
 
 ## TODO
 - <del>Add more configuration for interceptors</del>
+- <del>Add onSuccess, onError callback</del>
 - Add more documentation about resources reducer
 - Add documentation about pre and post interceptors
 - Add test

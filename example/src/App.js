@@ -75,6 +75,7 @@ class App extends React.PureComponent {
 
   state = {
       posts: [],
+      loading: false,
   }
 
   componentDidMount() {
@@ -86,12 +87,52 @@ class App extends React.PureComponent {
   render() {
     return <div>
       <button onClick={() => {
-        store.dispatch(ResourcesActions.getPosts())
+        this.setState({
+          loading: true
+        }, () => {
+          store.dispatch(ResourcesActions.getPosts({
+            id: 'does_not_exist',
+            options: {
+              onSuccess: (d) => {
+                this.setState({
+                  loading: false
+                });
+              },
+              onError: (e) => {
+                alert(`error: ${e}`);
+                this.setState({
+                  loading: false
+                });
+              }
+            }
+          }));
+        });
+      }}>
+        Load posts with error
+      </button>
+      <button onClick={() => {
+        this.setState({
+          loading: true
+        }, () => {
+          store.dispatch(ResourcesActions.getPosts({
+            options: {
+              onSuccess: (d) => {
+                this.setState({
+                  loading: false
+                });
+              }
+            }
+          }));
+        });
       }}>
         Load posts
       </button>
       <br/>
-      {` total posts: ${this.state.posts.length}`}
+      {
+        this.state.loading
+          ? 'Loading ...'
+          : ` total posts: ${this.state.posts.length}`
+      }
       <br/>
       <div style={{ width: '400px', height: '400px', overflowX: 'hidden', overflowY: 'scroll' }}>
       {
