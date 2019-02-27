@@ -68,6 +68,23 @@ export function deleteResourceSuccess(resource, id, payload) {
 }
 
 /**
+ * Clear the detail of the resource
+ */
+export function clearResourceDetail(resource){
+    return { 
+        type: Consts.CLEAR_RESOURCE_DETAIL,
+        resource
+    }
+}
+
+export function clearResourceData(resource){
+    return { 
+        type: Consts.CLEAR_RESOURCE_DATA,
+        resource
+    }
+}
+
+/**
  * Request error
  */
 export function requestError(resource, id, error) {
@@ -151,7 +168,6 @@ function runtimeErrorAction(resource, id, error) {
         error,
     }
 }
-
 
 // This is for custom http request
 export function requestReources(request, resource, options = {}, route = '') {
