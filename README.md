@@ -84,8 +84,13 @@ Each action takes one config object and it is as the following:
      entity: {}, 
 
      // options are same as axios request-config, without the url, id and data property
+     // onSuccess and onError is defined by user, to handle success and error case of the request
      // @see https://github.com/axios/axios#request-config
-     options: {}, 
+     options: {
+       onSuccess: (responseData) => {},
+       onError: (error) => {},
+       ...requestConfig
+     }, 
 
      // this is the subroute of this request. it should starts with /
      // e.g, for url: www.example.com/posts, if route = '/me', then the request goes to www.example.com/posts/me
