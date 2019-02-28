@@ -9,7 +9,7 @@ See example usage in ``src/demo/App.js``
 Using npm:
 
 ```bash
-$ npm install git+https://github.com/AWorkingApp/redux-rest-middleware.git
+$ npm install redux-rest-middleware
 ```
 
 ## Configure with Redux
