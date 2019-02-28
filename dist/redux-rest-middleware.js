@@ -2,7 +2,7 @@
  * redux-rest-middleware
  * A middleware to help make standard CRUD request with redux.
  * 
- * @version v1.0.0
+ * @version v1.0.1
  * @author Charlie Liu<charlie@aworkingapp.com>
  * @homepage undefined
  * @repository git+https://github.com/AWorkingApp/redux-rest-middleware.git
