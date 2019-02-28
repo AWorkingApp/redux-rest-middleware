@@ -1,7 +1,21 @@
-export { default as ResourcesActions, getResourceActions } from './resources';
-export { default as ResourcesReducer } from './reducers';
+import ResourcesActions, { getResourceActions } from './resources';
+import ResourcesReducer from './reducers';
 
 // create the middleware
-export { default as createResourceMiddleware } from './middleware';
+import createResourceMiddleware from './middleware';
 
-export { METHODS, REQUEST_SUCCESS, REQUEST_ERROR, RUNTIME_ERROR } from './constants';
+import { METHODS, REQUEST_SUCCESS, REQUEST_ERROR, RUNTIME_ERROR } from './constants';
+
+export default {
+  ResourcesActions,
+  getResourceActions,
+
+  ResourcesReducer,
+
+  createResourceMiddleware,
+
+  METHODS,
+  REQUEST_SUCCESS,
+  REQUEST_ERROR,
+  RUNTIME_ERROR
+};

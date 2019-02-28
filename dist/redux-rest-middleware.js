@@ -2,7 +2,7 @@
  * redux-rest-middleware
  * A middleware to help make standard CRUD request with redux.
  * 
- * @version v0.5.0
+ * @version v0.5.3
  * @author Charlie Liu<charlie@aworkingapp.com>
  * @homepage undefined
  * @repository git+https://github.com/AWorkingApp/redux-rest-middleware.git
@@ -8116,36 +8116,30 @@ var METHODS = {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: ResourcesActions, getResourceActions, ResourcesReducer, createResourceMiddleware, METHODS, REQUEST_SUCCESS, REQUEST_ERROR, RUNTIME_ERROR */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resources */ "./src/resources.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourcesActions", function() { return _resources__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getResourceActions", function() { return _resources__WEBPACK_IMPORTED_MODULE_0__["getResourceActions"]; });
-
 /* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducers */ "./src/reducers.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourcesReducer", function() { return _reducers__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
 /* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./middleware */ "./src/middleware.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createResourceMiddleware", function() { return _middleware__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./src/constants.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "METHODS", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["METHODS"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "REQUEST_SUCCESS", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["REQUEST_SUCCESS"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "REQUEST_ERROR", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["REQUEST_ERROR"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RUNTIME_ERROR", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["RUNTIME_ERROR"]; });
-
 
  // create the middleware
 
 
 
+/* harmony default export */ __webpack_exports__["default"] = ({
+  ResourcesActions: _resources__WEBPACK_IMPORTED_MODULE_0__["default"],
+  getResourceActions: _resources__WEBPACK_IMPORTED_MODULE_0__["getResourceActions"],
+  ResourcesReducer: _reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  createResourceMiddleware: _middleware__WEBPACK_IMPORTED_MODULE_2__["default"],
+  METHODS: _constants__WEBPACK_IMPORTED_MODULE_3__["METHODS"],
+  REQUEST_SUCCESS: _constants__WEBPACK_IMPORTED_MODULE_3__["REQUEST_SUCCESS"],
+  REQUEST_ERROR: _constants__WEBPACK_IMPORTED_MODULE_3__["REQUEST_ERROR"],
+  RUNTIME_ERROR: _constants__WEBPACK_IMPORTED_MODULE_3__["RUNTIME_ERROR"]
+});
 
 /***/ }),
 
