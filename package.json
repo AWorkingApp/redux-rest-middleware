@@ -2,10 +2,11 @@
   "name": "redux-rest-middleware",
   "version": "0.4.0",
   "description": "A middleware to help make standard CRUD request with redux.",
-  "main": "build/redux-rest-middleware.min.js",
+  "main": "dist/redux-rest-middleware.min.js",
   "files": [
     "src/",
-    "dist/"
+    "dist/",
+    "lib/"
   ],
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require @babel/register --colors ./test/*.spec.js",

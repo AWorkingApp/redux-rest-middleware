@@ -25,7 +25,7 @@ if (mode === 'production') {
 }
 
 module.exports = {
-  entry: [`${__dirname}/src/index.js`],
+  entry: [`${__dirname}/index.js`],
   devtool: 'source-map',
   output: {
     path: `${__dirname}/${libraryTarget === 'umd' ? 'dist' : 'lib'}`,
