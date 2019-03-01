@@ -2,7 +2,7 @@
 
 ### Development in progress
 
-See example usage in ``src/demo/App.js``
+See example usage in ``example/src/App.js``
 
 ## Installing
 
