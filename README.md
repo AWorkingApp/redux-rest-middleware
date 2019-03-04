@@ -4,6 +4,12 @@
 
 See example usage in ``example/src/App.js``
 
+## Note
+
+Version: 1.1.7+ since 1.1.7, dependency for immutabljs is removed thus all data in reducer are plain javascript object
+
+Version: 1.0.2 this version depends on immutablejs, all data in reducer is a object of immutablejs MAP/List
+
 ## Installing
 
 Using npm:
