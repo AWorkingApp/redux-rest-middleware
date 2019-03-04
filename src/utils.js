@@ -45,7 +45,9 @@ export function updateInObjectKeyValue(oldObject, keyArray, value) {
         tmpState[_key] = deepClone(oldObject[_key]);
       } else {
         // if does not exist, we create a empty object as placeholder
-        tmpState[_key] = {};
+        if (typeof tmpState[_key] === 'undefined') {
+          tmpState[_key] = {};
+        }
       }
       tmpState = tmpState[_key];
     } else {

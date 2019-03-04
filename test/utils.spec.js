@@ -120,4 +120,29 @@ describe('test updateInObjectKeyValue', () => {
     expect(updateArray.length).to.be.eql(2);
   });
 
+  it('it should update element in an array', () => {
+    let oldObject = {
+      person: { name: 'old', age: 12, address: { street: 'street name' } },
+      friends: {
+        data: [{
+          name: 'james'
+        }, {
+          name: 'curry'
+        }]
+      }
+    };
+
+    let updateObj = {
+      name: 'kevin',
+      address: {
+        street: 'home'
+      }
+    };
+
+    let newObject = Utils.updateInObjectKeyValue(oldObject, ['friends', 'data', 0], updateObj);
+    expect(newObject.friends.data[0].name).to.be.eql('kevin');
+    expect(newObject.friends.data.length).to.be.eql(2);
+    expect(Array.isArray(newObject.friends.data)).to.be.true;
+  });
+
 });

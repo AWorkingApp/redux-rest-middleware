@@ -120,7 +120,7 @@ export default function RestClient(resource, resourceUrl) {
     },
 
     put: async (options = {}, route = '') => {
-      let url = `${resourceUrl}${route}}`;
+      let url = `${resourceUrl}${route}`;
       return await _put(url, options, resource);
     },
 
