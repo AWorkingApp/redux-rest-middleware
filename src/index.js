@@ -10,6 +10,8 @@ import createResourceMiddleware from './middleware';
 
 import { METHODS, REQUEST_SUCCESS, REQUEST_ERROR, RUNTIME_ERROR } from './constants';
 
+import RestClient from './request';
+
 export default {
   ResourcesActions,
   getResourceActions,
@@ -17,6 +19,7 @@ export default {
   ResourcesReducer,
 
   createResourceMiddleware,
+  RestClient,
 
   METHODS,
   REQUEST_SUCCESS,
