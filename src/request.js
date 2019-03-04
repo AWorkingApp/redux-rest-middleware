@@ -119,8 +119,8 @@ export default function RestClient(resource, resourceUrl) {
       return await _post(url, options, resource);
     },
 
-    put: async (id, options = {}, route = '') => {
-      let url = `${resourceUrl}${route}/${id}`;
+    put: async (options = {}, route = '') => {
+      let url = `${resourceUrl}${route}}`;
       return await _put(url, options, resource);
     },
 

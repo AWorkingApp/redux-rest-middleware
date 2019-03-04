@@ -82,7 +82,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
 
     case Consts.PUT_RESOURCE:
       restClient
-        .put(action.id, action.options, action.route)
+        .put(action.options, action.route)
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
