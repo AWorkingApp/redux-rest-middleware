@@ -1,48 +1,54 @@
-import { fromJS } from 'immutable';
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
 
 import { getInitialReducerState } from './resources';
-
+import * as Utils from './utils';
 import * as Consts from './constants';
 
 function requestSuccessReducer(state, action) {
   let dataIdx;
-  let resultState = state.set('loading', false)
-    .setIn([action.resource, 'loading'], false);
+
+  let resultState = Utils.updateObjectKeyValue(state, 'loading', false);
+  resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'loading'], false);
 
   if (action.payload.id) {
-    dataIdx = resultState.getIn([action.resource, 'data']).findIndex(d => `${d.get('id')}` === `${action.payload.id}`);
+    dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.payload.id}`);
   } else if (action.id) {
-    dataIdx = resultState.getIn([action.resource, 'data']).findIndex(d => d.get('id') === action.id);
+    dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.id}`);
   }
 
   switch (action.method) {
     case Consts.METHODS.GET:
       if (action.id) {
-        return resultState.setIn([action.resource, 'detail'], fromJS(action.payload));
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'detail'], action.payload);
       }
-      return resultState.setIn([action.resource, 'data'], fromJS(action.payload));
+      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], action.payload);
 
     case Consts.METHODS.POST:
-      return resultState.updateIn([action.resource, 'data'], data => data.push(fromJS(action.payload)));
+      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concet(action.payload));
 
     case Consts.METHODS.PUT:
       // if current detail is loaded, update detail as well
-      if (resultState.getIn([action.resource, 'detail', 'id']) === action.payload.id
-        || typeof resultState.getIn([action.resource, 'detail', 'id']) === 'undefined') {
-        resultState = resultState.setIn([action.resource, 'detail'], fromJS(action.payload));
+      if (resultState[action.resource].detail.id === action.payload.id
+        || typeof resultState[action.resource].detail.id === 'undefined') {
+
+        resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'detail'], action.payload);
       }
 
       if (dataIdx > -1) {
-        return resultState
-          .setIn([action.resource, 'data', dataIdx], fromJS(action.payload));
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data', dataIdx], action.payload);
       } else {
-        return resultState.updateIn([action.resource, 'data'], data => data.unshift(fromJS(action.payload)));
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concet(action.payload));
       }
 
     case Consts.METHODS.DELETE:
       if (dataIdx > -1) {
-        return resultState.deleteIn([action.resource, 'data', dataIdx])
-          .deleteIn([action.resource, 'detail']);
+        resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'detail'], {});
+        // remove from current resultState data
+        resultState[action.resource].data.splice(dataIdx, 1);
+        return resultState;
+
       }
       break;
 
@@ -53,45 +59,54 @@ function requestSuccessReducer(state, action) {
   return resultState;
 }
 
-// TODO get rid of immutablejs as dependency
 export default function resources(
-  state = fromJS({ loading: false, ...getInitialReducerState() }),
+  state = Utils.deepClone({ loading: false, ...getInitialReducerState() }),
   action = {}) {
 
   switch (action.type) {
-    case Consts.GET_RESOURCES:
-      return state.set('loading', true)
-        .setIn([action.resource, 'loading'], true);
-
     case Consts.POST_RESOURCE:
-      return state.set('loading', true)
-        .setIn([action.resource, 'loading'], true);
+    case Consts.GET_RESOURCES: {
+      return Utils.updateInObjectKeyValue(
+        Utils.updateObjectKeyValue(state, 'loading', true),
+        [action.resource, 'loading'],
+        true);
+    }
 
-    case Consts.PUT_RESOURCE:
+    case Consts.PUT_RESOURCE: {
+      return Utils.updateInObjectKeyValue(
+        Utils.updateObjectKeyValue(state, 'loading', true),
+        [action.resource, 'loading'],
+        true);
+    }
+
     case Consts.GET_RESOURCE:
-    case Consts.DELETE_RESOURCE:
-      return state.set('loading', true)
-        .setIn([action.resource, 'loading'], true)
-        .setIn([action.resource, 'detail'], fromJS({}));
+    case Consts.DELETE_RESOURCE: {
+      return Utils.updateInObjectKeyValue(
+        Utils.updateInObjectKeyValue(
+          Utils.updateObjectKeyValue(state, 'loading', true), [action.resource, 'loading'], true),
+        [action.resource, 'detail'], {}
+      );
+    }
 
     case Consts.REQUEST_SUCCESS:
       return requestSuccessReducer(state, action);
 
     case Consts.REQUEST_ERROR:
-    case Consts.RUNTIME_ERROR:
-      return state.set('loading', false).setIn([action.resource, 'loading'], false);
+    case Consts.RUNTIME_ERROR: {
+      return Utils.updateInObjectKeyValue(
+        Utils.updateObjectKeyValue(state, 'loading', false), [action.resource, 'loading'],
+        false);
+    }
 
     case Consts.CLEAR_RESOURCE_DATA:
-      return state
-        .setIn([action.resource, 'data'], fromJS([]));
+      return Utils.updateInObjectKeyValue(state, [action.resource, 'data'], []);
 
     case Consts.CLEAR_RESOURCE_DETAIL:
-      return state
-        .setIn([action.resource, 'detail'], fromJS({}));
+      return Utils.updateInObjectKeyValue(state, [action.resource, 'detail'], {});
 
       // return to initial state
     case Consts.CLEAR_ALL:
-      return fromJS({ loading: false, ...getInitialReducerState() });
+      return Utils.deepClone({ loading: false, ...getInitialReducerState() });
 
     default:
       break;

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 import * as ResourcesActions from './actions';
 
 import { getResourceClient, configResources } from './resources';

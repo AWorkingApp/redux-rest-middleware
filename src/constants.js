@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 export const GET_RESOURCES = 'REDUX_REST_RESOURCE_GET_RESOURCES';
 
 export const GET_RESOURCE = 'REDUX_REST_RESOURCE_GET_RESOURCE';

@@ -103,11 +103,12 @@ Each action takes one config object and it is as the following:
 ## TODO
 - <del>Add more configuration for interceptors</del>
 - <del>Add onSuccess, onError callback</del>
+- <del>Remove dependency to immutablejs and reduce the size of this library</del>
 - Add more documentation about resources reducer
 - Add documentation about pre and post interceptors
 - Add test
 - Make a more complete example
-- Remove dependency to immutablejs and axios and reduce the size of this library
+- Remove dependency to axios and reduce the size of this library
 - Publish to NPM repository
 
 ## License

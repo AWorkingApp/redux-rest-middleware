@@ -1,4 +1,7 @@
-// import '@babel/polyfill';
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 import axios from 'axios';
 
 import * as Interceptors from './interceptors';

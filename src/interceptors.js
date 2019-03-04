@@ -1,4 +1,7 @@
 /*
+*
+* Copyright (c) 2019 - present, A Working App Inc.
+*
 * interceptor can be either a function or a object,
 * if its a function its in the format of
 *   (options = {}, resource) => {}, // this return either a new options or false to ignore this interceptor

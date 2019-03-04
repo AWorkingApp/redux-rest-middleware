@@ -1,8 +1,14 @@
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 import restClient from './request';
 import * as BasicActions from './actions';
 
 const _resourceClients = {};
-const _resourceActions = {};
+const _resourceActions = {
+  clearAll: BasicActions.clearAll
+};
 const _resourceActionsMap = {};
 const _initialReducers = {};
 
@@ -27,7 +33,7 @@ function addResource({ resource, url }) {
   _resourceActions[`clear${_resourceName}Detail`] = () => BasicActions.clearResourceDetail(resource);
   _resourceActions[`clear${_resourceName}Data`] = () => BasicActions.clearResourceData(resource);
 
-  // create a new map element
+  // create a new map element reference
   newResourceMap[`get${_resourceName}`] = _resourceActions[`get${_resourceName}`];
   newResourceMap[`getAll${_resourceName}`] = _resourceActions[`getAll${_resourceName}`];
   newResourceMap[`post${_resourceName}`] = _resourceActions[`post${_resourceName}`];
@@ -38,12 +44,12 @@ function addResource({ resource, url }) {
 
   _resourceActionsMap[resource] = newResourceMap;
 
-  _initialReducers[resource] = {
+  _initialReducers[resource] = Object.assign({}, {
     data: [],
     detail: {},
     loading: false,
     total: 0
-  };
+  });
 }
 
 export const configResources = resources => {
@@ -78,6 +84,7 @@ export function getResourceActions(resource, dispatch) {
   resultActions[`delete${_resourceName}`] = config => dispatch(funcs[`delete${_resourceName}`](config));
   resultActions[`clear${_resourceName}Detail`] = () => dispatch(funcs[`clear${_resourceName}Detail`]());
   resultActions[`clear${_resourceName}Data`] = () => dispatch(funcs[`clear${_resourceName}Data`]());
+  resultActions.clearAll = () => dispatch(BasicActions.clearAll());
 
   return resultActions;
 }

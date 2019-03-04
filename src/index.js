@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 import ResourcesActions, { getResourceActions } from './resources';
 import ResourcesReducer from './reducers';
 

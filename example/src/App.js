@@ -75,12 +75,16 @@ class App extends React.PureComponent {
 
   state = {
       posts: [],
-      loading: false,
+      postsDetail: {},
+      loadingDetail: false,
   }
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState({ posts: store.getState().resources.get('posts').get('data').toJS() });
+      this.setState({
+        posts: store.getState().resources.posts.data,
+        postsDetail: store.getState().resources.posts.detail
+      });
     });
   }
 
@@ -127,27 +131,83 @@ class App extends React.PureComponent {
       }}>
         Load posts
       </button>
-      <br/>
+      <button onClick={() => {
+        store.dispatch(ResourcesActions.clearPostsData());
+      }}>
+        Clear All Posts
+      </button>
+      <button onClick={() => {
+        store.dispatch(ResourcesActions.clearPostsDetail());
+      }}>
+        Clear Post
+      </button>
+      <button onClick={() => {
+        store.dispatch(ResourcesActions.clearAll());
+      }}>
+        Clear All
+      </button>
+      <br />
       {
         this.state.loading
           ? 'Loading ...'
           : ` total posts: ${this.state.posts.length}`
       }
-      <br/>
-      <div style={{ width: '400px', height: '400px', overflowX: 'hidden', overflowY: 'scroll' }}>
-      {
-        this.state.posts.map(post => 
-            <div key={post.id}>
-              <h5>
-                {`${post.title}`}
-              </h5>
-              <span>
-                {`${post.body}`}
-              </span>
-              <hr />
-            </div>
-        )
-      }
+      <br />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ width: '400px', height: '400px', overflowX: 'hidden', overflowY: 'scroll' }}>
+          {
+            this.state.posts.map(post =>
+              <div key={post.id}>
+                <h5>
+                  {`${post.title}`}
+                </h5>
+                <span>
+                  {`${post.body}`}
+                </span>
+                <button onClick={() => {
+                  this.setState({
+                    loadingDetail: true
+                  }, () => {
+                    store.dispatch(ResourcesActions.getPosts({
+                      id: post.id,
+                      options: {
+                        onSuccess: (d) => {
+
+                          this.setState({
+                            loadingDetail: false
+                          });
+                        },
+                        onError: (e) => {
+                          alert(`error: ${e}`);
+                          this.setState({
+                            loadingDetail: false
+                          });
+                        }
+                      }
+                    }));
+                  });
+                }}>
+                  Get Detail
+              </button>
+                <hr />
+              </div>
+            )
+          }
+        </div>
+        <div style={{ width: '300px', marginLeft: 24 }}>
+          <h4>
+            Post Detail
+          </h4>
+          <h5>
+            id: {this.state.postsDetail.id}
+          </h5>
+          <h5>
+            title: {this.state.postsDetail.title}
+          </h5>
+          <span>
+            content: {this.state.postsDetail.body}
+          </span>
+        </div>
       </div>
     </div>
   }

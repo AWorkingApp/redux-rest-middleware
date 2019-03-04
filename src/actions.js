@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 - present, A Working App Inc.
+ */
+
 import * as Consts from './constants';
 
 // Internal Actions
