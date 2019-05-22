@@ -26,7 +26,7 @@ function requestSuccessReducer(state, action) {
       return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], action.payload);
 
     case Consts.METHODS.POST:
-      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concet(action.payload));
+      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concat(action.payload));
 
     case Consts.METHODS.PUT:
       // if current detail is loaded, update detail as well
@@ -39,7 +39,7 @@ function requestSuccessReducer(state, action) {
       if (dataIdx > -1) {
         return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data', dataIdx], action.payload);
       } else {
-        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concet(action.payload));
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], resultState[action.resource].data.concat(action.payload));
       }
 
     case Consts.METHODS.DELETE:
