@@ -12,10 +12,12 @@ function requestSuccessReducer(state, action) {
   let resultState = Utils.updateObjectKeyValue(state, 'loading', false);
   resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'loading'], false);
 
-  if (action.payload.id) {
-    dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.payload.id}`);
-  } else if (action.id) {
-    dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.id}`);
+  if (action.method === Consts.METHODS.PUT || action.method === Consts.METHODS.DELETE) {
+    if (action.payload.id) {
+      dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.payload.id}`);
+    } else if (action.id) {
+      dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.id}`);
+    }
   }
 
   switch (action.method) {
