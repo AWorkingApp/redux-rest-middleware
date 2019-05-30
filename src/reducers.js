@@ -13,10 +13,13 @@ function requestSuccessReducer(state, action) {
   resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'loading'], false);
 
   if (action.method === Consts.METHODS.PUT || action.method === Consts.METHODS.DELETE) {
-    if (action.payload.id) {
-      dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.payload.id}`);
-    } else if (action.id) {
-      dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.id}`);
+    if (typeof resultState[action.resource] !== 'undefined'
+      && typeof resultState[action.resource].data !== 'undefined') {
+      if (action.payload.id) {
+        dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.payload.id}`);
+      } else if (action.id) {
+        dataIdx = resultState[action.resource].data.findIndex(d => `${d.id}` === `${action.id}`);
+      }
     }
   }
 
