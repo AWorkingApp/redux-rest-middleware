@@ -28,7 +28,6 @@ function _requestSuccessReducer(state, action) {
       && typeof resultState[action.resource].data.findIndex === 'function') {
 
       if (action.payload.id) {
-
         if (action.method === Consts.METHODS.PUT) {
           fieldKey = resultState[action.resource].dataField.put;
         } else if (action.method === Consts.METHODS.DELETE) {
@@ -59,13 +58,13 @@ function _requestSuccessReducer(state, action) {
       return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], action.payload);
 
     case Consts.METHODS.POST:
-
       fieldKey = resultState[action.resource].dataField.post;
       payloadData = _getPayloadData(fieldKey, action);
 
       resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], [payloadData].concat(resultState[action.resource].data));
 
-      // TODO: confirm the update
+      // TODO: confirm the update with data list fieldkey
+      fieldKey = resultState[action.resource].dataField.getAll;
       if (fieldKey === null) {
         return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], [payloadData].concat(resultState[action.resource].data));
       }
@@ -83,6 +82,8 @@ function _requestSuccessReducer(state, action) {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawDetail'], action.payload);
       }
 
+      // use get field key to modify list data
+      fieldKey = resultState[action.resource].dataField.getAll;
       if (dataIdx > -1) {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data', dataIdx], payloadData);
 
@@ -105,6 +106,8 @@ function _requestSuccessReducer(state, action) {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawDetail'], {});
         // remove from current resultState data
         resultState[action.resource].data.splice(dataIdx, 1);
+
+        fieldKey = resultState[action.resource].dataField.getAll;
         if (fieldKey === null) {
           resultState[action.resource].rawData.splice(dataIdx, 1);
         } else {
