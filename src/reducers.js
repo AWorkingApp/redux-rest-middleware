@@ -63,8 +63,13 @@ function _requestSuccessReducer(state, action) {
       fieldKey = resultState[action.resource].dataField.post;
       payloadData = _getPayloadData(fieldKey, action);
 
-      resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], payloadData);
-      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], action.payload);
+      resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], [payloadData].concat(resultState[action.resource].data));
+
+      // TODO: confirm the update
+      if (fieldKey === null) {
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], [payloadData].concat(resultState[action.resource].data));
+      }
+      return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData', fieldKey], [payloadData].concat(resultState[action.resource].data));
 
     case Consts.METHODS.PUT:
       // if current detail is loaded, update detail as well
@@ -80,11 +85,18 @@ function _requestSuccessReducer(state, action) {
 
       if (dataIdx > -1) {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data', dataIdx], payloadData);
-        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData', dataIdx], payloadData);
 
+        if (fieldKey === null) {
+          return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData', dataIdx], payloadData);
+        }
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData', fieldKey, dataIdx], payloadData);
       } else {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], [payloadData].concat(resultState[action.resource].data));
-        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], [payloadData].concat(resultState[action.resource].data));
+
+        if (fieldKey === null) {
+          return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], [payloadData].concat(resultState[action.resource].data));
+        }
+        return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData', fieldKey], [payloadData].concat(resultState[action.resource].data));
       }
 
     case Consts.METHODS.DELETE:
@@ -93,7 +105,12 @@ function _requestSuccessReducer(state, action) {
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawDetail'], {});
         // remove from current resultState data
         resultState[action.resource].data.splice(dataIdx, 1);
-        resultState[action.resource].rawData.splice(dataIdx, 1);
+        if (fieldKey === null) {
+          resultState[action.resource].rawData.splice(dataIdx, 1);
+        } else {
+          resultState[action.resource].rawData[fieldKey].splice(dataIdx, 1);
+        }
+
         return resultState;
       }
       break;
