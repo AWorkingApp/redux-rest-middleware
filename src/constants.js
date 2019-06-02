@@ -26,6 +26,7 @@ export const RUNTIME_ERROR = '@@/REDUX_REST_RESOURCE/RUNTIME_ERROR';
 export const CLEAR_ALL = '@@/REDUX_REST_RESOURCE/CLEAR_ALL';
 
 export const METHODS = {
+  GETAll: 'getAll',
   GET: 'get',
   POST: 'post',
   PUT: 'put',
