@@ -102,7 +102,7 @@ Each action takes one config object and it is as the following:
      // e.g, for url: www.example.com/posts, if route = '/me', then the request goes to www.example.com/posts/me
      // Note, if the action comes with id, then route will before the id path parameter.
      // e.g for url: www.example.com/posts, if route = '/me' and id = 1 then request goes to www.example.com/posts/me/1
-     route = '', 
+     route: '', 
  }
 ```
 
