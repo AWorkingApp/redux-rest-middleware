@@ -115,7 +115,7 @@ Each action takes one config object and it is as the following:
 - Add test
 - Make a more complete example
 - Remove dependency to axios and reduce the size of this library
-- Publish to NPM repository
+- <del>Publish to NPM repository</del>
 
 ## License
 MIT
