@@ -32,3 +32,8 @@ export const METHODS = {
   PUT: 'put',
   DELETE: 'delete'
 };
+
+export const REQUEST_MODE = {
+  REPLACE: 'replace',
+  APPEND: 'append'
+};

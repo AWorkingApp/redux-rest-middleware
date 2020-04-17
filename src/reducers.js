@@ -18,6 +18,7 @@ function _requestSuccessReducer(state, action) {
   let dataIdx;
   let payloadData;
   let fieldKey = null;
+  let options = action.options;
 
   let resultState = Utils.updateObjectKeyValue(state, 'loading', false);
   resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'loading'], false);
@@ -53,6 +54,9 @@ function _requestSuccessReducer(state, action) {
 
       fieldKey = resultState[action.resource].dataField.getAll;
       payloadData = _getPayloadData(fieldKey, action);
+      if (Consts.REQUEST_MODE.APPEND === options.requestMode) {
+        payloadData = [...resultState[action.resource].data, ...payloadData];
+      }
 
       resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], payloadData);
       return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawData'], action.payload);
