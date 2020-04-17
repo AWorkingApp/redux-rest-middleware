@@ -87,7 +87,7 @@ export function getResource(resource, id, options = {}, route = '') { //eslint-d
 }
 
 export function getResourceSuccess(resource, id, payload, options = {}) {
-  return crudSuccessAction(Consts.METHODS.GET, resource, id, payload);
+  return crudSuccessAction(Consts.METHODS.GET, resource, id, payload, options);
 }
 
 export function getResources(resource, options = {}, route = '') { //eslint-disable-line
@@ -95,7 +95,7 @@ export function getResources(resource, options = {}, route = '') { //eslint-disa
 }
 
 export function getResourcesSuccess(resource, payload, options = {}) {
-  return crudSuccessAction(Consts.METHODS.GET, resource, undefined, payload); //eslint-disable-line
+  return crudSuccessAction(Consts.METHODS.GET, resource, undefined, payload, options); //eslint-disable-line
 }
 
 export function postResource(resource, entity = {}, options = {}, route = '') { //eslint-disable-line
@@ -104,7 +104,7 @@ export function postResource(resource, entity = {}, options = {}, route = '') { 
 }
 
 export function postResourceSuccess(resource, payload, options = {}) {
-  return crudSuccessAction(Consts.METHODS.POST, resource, undefined, payload); //eslint-disable-line
+  return crudSuccessAction(Consts.METHODS.POST, resource, undefined, payload, options); //eslint-disable-line
 }
 
 export function putResource(resource, id, entity = {}, options = {}, route = '') { //eslint-disable-line
@@ -113,7 +113,7 @@ export function putResource(resource, id, entity = {}, options = {}, route = '')
 }
 
 export function putResourceSuccess(resource, id, payload, options = {}) {
-  return crudSuccessAction(Consts.METHODS.PUT, resource, id, payload);
+  return crudSuccessAction(Consts.METHODS.PUT, resource, id, payload, options);
 }
 
 export function deleteResource(resource, id, options = {}, route = '') { //eslint-disable-line
@@ -121,7 +121,7 @@ export function deleteResource(resource, id, options = {}, route = '') { //eslin
 }
 
 export function deleteResourceSuccess(resource, id, payload, options = {}) {
-  return crudSuccessAction(Consts.METHODS.DELETE, resource, id, payload);
+  return crudSuccessAction(Consts.METHODS.DELETE, resource, id, payload, options);
 }
 
 // Clear the detail of the resource
