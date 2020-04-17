@@ -1,6 +1,6 @@
 {
   "name": "redux-rest-middleware",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "A middleware to help make standard CRUD request with redux.",
   "main": "lib/redux-rest-middleware.js",
   "files": [
