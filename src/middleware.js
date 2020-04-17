@@ -56,7 +56,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
-            .getResourceSuccess(action.resource, action.id, result.data));
+            .getResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);
       break;
 
@@ -66,7 +66,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
-            .getResourcesSuccess(action.resource, result.data));
+            .getResourcesSuccess(action.resource, result.data, action.options));
         }, onError);
       break;
 
@@ -76,7 +76,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
-            .postResourceSuccess(action.resource, result.data));
+            .postResourceSuccess(action.resource, result.data, action.options));
         }, onError);
       break;
 
@@ -86,7 +86,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
-            .putResourceSuccess(action.resource, action.id, result.data));
+            .putResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);
       break;
 
@@ -96,7 +96,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
         .then(result => {
           onSuccessCallback(action, result.data);
           return next(ResourcesActions
-            .deleteResourceSuccess(action.resource, action.id, result.data));
+            .deleteResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);
       break;
     default:
