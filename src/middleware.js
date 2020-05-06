@@ -33,13 +33,13 @@ const _onError = (next, action) => error => {
 };
 
 // TODO Error handling?
-const onSuccessCallback = (action, data) => {
+const onSuccessCallback = (action, data, result) => {
   try {
     if (action
       && action.options
       && action.options.onSuccess
       && typeof action.options.onSuccess === 'function') {
-      action.options.onSuccess(data);
+      action.options.onSuccess(data, result);
     }
   } catch (e) { }
 };
@@ -54,7 +54,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
       restClient
         .get(action.id, action.options, action.route)
         .then(result => {
-          onSuccessCallback(action, result.data);
+          onSuccessCallback(action, result.data, result);
           return next(ResourcesActions
             .getResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);
@@ -64,7 +64,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
       restClient
         .getAll(action.options, action.route)
         .then(result => {
-          onSuccessCallback(action, result.data);
+          onSuccessCallback(action, result.data, result);
           return next(ResourcesActions
             .getResourcesSuccess(action.resource, result.data, action.options));
         }, onError);
@@ -74,7 +74,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
       restClient
         .post(action.options, action.route)
         .then(result => {
-          onSuccessCallback(action, result.data);
+          onSuccessCallback(action, result.data, result);
           return next(ResourcesActions
             .postResourceSuccess(action.resource, result.data, action.options));
         }, onError);
@@ -84,7 +84,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
       restClient
         .put(action.options, action.route)
         .then(result => {
-          onSuccessCallback(action, result.data);
+          onSuccessCallback(action, result.data, result);
           return next(ResourcesActions
             .putResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);
@@ -94,7 +94,7 @@ const resourceMiddleware = store => next => action => { // eslint-disable-line
       restClient
         .delete(action.id, action.options, action.route)
         .then(result => {
-          onSuccessCallback(action, result.data);
+          onSuccessCallback(action, result.data, result);
           return next(ResourcesActions
             .deleteResourceSuccess(action.resource, action.id, result.data, action.options));
         }, onError);

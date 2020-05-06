@@ -86,7 +86,7 @@ export function getResource(resource, id, options = {}, route = '') { //eslint-d
   return crudAction(Consts.GET_RESOURCE, resource, id, options, route);
 }
 
-export function getResourceSuccess(resource, id, payload, options = {}) {
+export function getResourceSuccess(resource, id, payload, options = {}) { //eslint-disable-line
   return crudSuccessAction(Consts.METHODS.GET, resource, id, payload, options);
 }
 
@@ -112,7 +112,7 @@ export function putResource(resource, id, entity = {}, options = {}, route = '')
   return crudAction(Consts.PUT_RESOURCE, resource, id, options, route);
 }
 
-export function putResourceSuccess(resource, id, payload, options = {}) {
+export function putResourceSuccess(resource, id, payload, options = {}) { //eslint-disable-line
   return crudSuccessAction(Consts.METHODS.PUT, resource, id, payload, options);
 }
 
@@ -120,7 +120,7 @@ export function deleteResource(resource, id, options = {}, route = '') { //eslin
   return crudAction(Consts.DELETE_RESOURCE, resource, id, options, route);
 }
 
-export function deleteResourceSuccess(resource, id, payload, options = {}) {
+export function deleteResourceSuccess(resource, id, payload, options = {}) { //eslint-disable-line
   return crudSuccessAction(Consts.METHODS.DELETE, resource, id, payload, options);
 }
 

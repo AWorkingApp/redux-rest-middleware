@@ -35,5 +35,6 @@ export const METHODS = {
 
 export const REQUEST_MODE = {
   REPLACE: 'replace',
-  APPEND: 'append'
+  APPEND: 'append',
+  UPDATE: 'update'
 };

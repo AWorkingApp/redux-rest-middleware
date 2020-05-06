@@ -188,5 +188,54 @@ describe('test resources reducer request error actions', () => {
     expect(currState.staffs.loading).to.be.eql(false);
     expect(currState.staffs.detail.name).to.be.eql('bob');
   });
+});
 
+describe('test resources reducer request success actions', () => {
+  let initialState = {};
+
+  beforeEach(() => {
+    initialState = {
+      students: {
+        data: [],
+        detail: {
+          id: 0,
+          name: 'james'
+        },
+        loading: false,
+        total: 0
+      },
+      staffs: {
+        data: [],
+        detail: {
+          id: 1,
+          name: 'bob'
+        },
+        loading: false,
+        total: 0
+      }
+    };
+  });
+
+  it('it should merge payload and request result for getAll in update request mode', () => {
+    initialState.students.data = [
+      { id: 1, name: 'a' },
+      { id: 2, name: 'b' },
+      { id: 3, name: 'c' },
+      { id: 4, name: 'd' }
+    ];
+
+    let currState = resourceReducer(initialState, {
+      type: Consts.REQUEST_SUCCESS,
+      method: Consts.METHODS.GET,
+      resource: 'students',
+      options: {
+        requestMode: 'update'
+      },
+      payload: [{ id: 1, name: 'aa' }, { id: 5, name: 'e' }]
+    });
+
+    expect(currState.students.data.length).to.be.eq(5);
+    expect(currState.students.data[0].name).to.be.eq('aa');
+    expect(currState.students.data[4].name).to.be.eq('e');
+  });
 });

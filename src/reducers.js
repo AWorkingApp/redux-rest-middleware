@@ -7,7 +7,7 @@ import * as Utils from './utils';
 import * as Consts from './constants';
 
 function _getPayloadData(fieldKey, action) {
-  if (fieldKey === null) {
+  if (fieldKey === null || typeof action.payload[fieldKey] === 'undefined') {
     return action.payload;
   } else {
     return action.payload[fieldKey];
@@ -18,6 +18,7 @@ function _requestSuccessReducer(state, action) {
   let dataIdx;
   let payloadData;
   let fieldKey = null;
+  let idFieldKey = null;
   let options = action.options;
 
   let resultState = Utils.updateObjectKeyValue(state, 'loading', false);
@@ -45,17 +46,69 @@ function _requestSuccessReducer(state, action) {
   switch (action.method) {
     case Consts.METHODS.GET:
       if (action.id) {
-        fieldKey = resultState[action.resource].dataField.get;
+        fieldKey = typeof resultState[action.resource].dataField === 'undefined' ? null : resultState[action.resource].dataField.get;
         payloadData = _getPayloadData(fieldKey, action);
 
         resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'detail'], payloadData);
         return Utils.updateInObjectKeyValue(resultState, [action.resource, 'rawDetail'], action.payload);
       }
 
-      fieldKey = resultState[action.resource].dataField.getAll;
+      fieldKey = typeof resultState[action.resource].dataField === 'undefined' ? null : resultState[action.resource].dataField.getAll;
+      idFieldKey = typeof resultState[action.resource].idField === 'undefined' ? null : resultState[action.resource].idField.getAll;
       payloadData = _getPayloadData(fieldKey, action);
       if (Consts.REQUEST_MODE.APPEND === options.requestMode) {
         payloadData = [...resultState[action.resource].data, ...payloadData];
+      } else if (Consts.REQUEST_MODE.UPDATE === options.requestMode) {
+        // create two maps one for result data, one for payloadData
+        let resultDataMap = {};
+        [...resultState[action.resource].data].forEach(data => {
+          if (idFieldKey !== null && typeof data[idFieldKey] !== 'undefined') {
+            resultDataMap[data[idFieldKey]] = data;
+          } else {
+            resultDataMap[data.id] = data;
+          }
+        });
+
+        let payloadDataMap = {};
+        let mergedResultList = [];
+        [...payloadData].forEach(data => {
+          if (idFieldKey !== null && typeof data[idFieldKey] !== 'undefined') {
+            payloadDataMap[data[idFieldKey]] = data;
+          } else {
+            payloadDataMap[data.id] = data;
+          }
+        });
+
+        [...resultState[action.resource].data].forEach(data => {
+          let resultDataKey = null;
+          if (idFieldKey !== null && typeof data[idFieldKey] !== 'undefined') {
+            resultDataKey = data[idFieldKey];
+          } else {
+            resultDataKey = data.id;
+          }
+
+          // we need to update the payload data
+          if (typeof payloadDataMap[resultDataKey] !== 'undefined') {
+            mergedResultList.push(payloadDataMap[resultDataKey]);
+          } else {
+            mergedResultList.push(data);
+          }
+        });
+
+        [...payloadData].forEach(data => {
+          let payloadDataKey = null;
+          if (idFieldKey !== null && typeof data[idFieldKey] !== 'undefined') {
+            payloadDataKey = data[idFieldKey];
+          } else {
+            payloadDataKey = data.id;
+          }
+
+          if (typeof resultDataMap[payloadDataKey] === 'undefined') {
+            mergedResultList.push(data);
+          }
+        });
+
+        payloadData = [...mergedResultList];
       }
 
       resultState = Utils.updateInObjectKeyValue(resultState, [action.resource, 'data'], payloadData);

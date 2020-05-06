@@ -12,7 +12,7 @@ const _resourceActions = {
 const _resourceActionsMap = {};
 const _initialReducers = {};
 
-function addResource({ resource, url, dataField = {} }) {
+function addResource({ resource, url, dataField = {}, idField = {} }) {
   _resourceClients[resource] = restClient(resource, url);
 
   const _resourceName = resource[0].toUpperCase() + resource.substr(1);
@@ -50,7 +50,8 @@ function addResource({ resource, url, dataField = {} }) {
     post: null,
     put: null,
     delete: null,
-    ...dataField
+    ...dataField,
+    ...idField
   };
 
   _initialReducers[resource] = Object.assign({}, {
