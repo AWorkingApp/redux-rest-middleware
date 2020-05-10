@@ -43,6 +43,10 @@ function _requestSuccessReducer(state, action) {
     }
   }
 
+  if (Consts.REQUEST_MODE.REQUEST_ONLY === options.requestMode) {
+    return resultState;
+  }
+
   switch (action.method) {
     case Consts.METHODS.GET:
       if (action.id) {
