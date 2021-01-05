@@ -34,7 +34,7 @@
   "author": "Charlie Liu<charlie@aworkingapp.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "0.18.0"
+    "axios": "0.21.1"
   },
   "devDependencies": {
     "@babel/core": "~7.1.2",
