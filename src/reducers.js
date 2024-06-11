@@ -6,6 +6,9 @@ import { getInitialReducerState } from './resources';
 import * as Utils from './utils';
 import * as Consts from './constants';
 
+/*
+* Retrieve payload data from action, fall backs to the request option data
+*/
 function _getPayloadData(fieldKey, action) {
   if (fieldKey === null || typeof action.payload[fieldKey] === 'undefined') {
     return action.payload;

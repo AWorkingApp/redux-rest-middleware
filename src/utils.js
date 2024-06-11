@@ -2,9 +2,9 @@
  * Copyright (c) 2019 - present, A Working App Inc.
  */
 
-const isObject = val => typeof val === 'function' || toString.call(val) === '[object Object]';
-
 const isPrimitive = val => typeof val === 'object' ? val === null : typeof val !== 'function';
+
+export const isObject = val => typeof val === 'function' || toString.call(val) === '[object Object]';
 
 export const isArray = val => Array.isArray(val);
 
